@@ -4,52 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+
     <link href="{{ url_for('static', filename='bootstrap-5.3.2/dist/css/bootstrap.css') }}" rel="stylesheet"> 
     <link href="{{ url_for('static', filename='css/Login.css') }}" rel="stylesheet">
-    <!-- Agrega el script de reCAPTCHA v2 -->
+
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="#">Portal de Solicitudes</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <!-- Aquí puedes agregar los elementos del navbar -->
-            </ul>
+
+<body class="bg-light">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark bg-primary shadow-sm">
+        <div class="container">
+            <span class="navbar-brand mb-0 h1">Portal de Solicitudes</span>
         </div>
     </nav>
-    <div class="container center-content">
-        <h1 class="text-center welcome-title mb-4">¡Bienvenido!</h1>
-        <div class="form-container">
-            <div class="form-column">
-                <h4 class="section-title">Soy Administrador</h4>
+
+    <!-- Contenedor principal -->
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        
+        <div class="row shadow-lg rounded-4 overflow-hidden w-100" style="max-width: 900px;">
+
+            <!-- Columna login -->
+            <div class="col-md-6 p-5 bg-white">
+                <h3 class="mb-4 text-center fw-bold">Administrador</h3>
+
                 <form action="{{ url_for('admin_login') }}" method="POST">
-                    <div class="form-group mb-4">
-                        <label for="admin-user">Nombre de usuario:</label>
+
+                    <div class="mb-3">
+                        <label for="admin-user" class="form-label">Usuario</label>
                         <input type="text" class="form-control" id="admin-user" name="username" placeholder="Ingrese su usuario">
                     </div>
-                    <div class="form-group mb-4">
-                        <label for="admin-password">Contraseña:</label>
+
+                    <div class="mb-3">
+                        <label for="admin-password" class="form-label">Contraseña</label>
                         <input type="password" class="form-control" id="admin-password" name="password" placeholder="Ingrese su contraseña">
                     </div>
-                    <!-- Agrega el captcha aquí -->
-                    <div class="g-recaptcha" data-sitekey="6Lf9TQ0qAAAAAIoiqjAgzzqpXL7lJN4SGgeQR7iA"></div>
-                    <button type="submit" class="btn btn-primary btn-block mb-3">Ingresar</button>
+
+                    <div class="mb-3">
+                        <div class="g-recaptcha" data-sitekey="6Lf9TQ0qAAAAAIoiqjAgzzqpXL7lJN4SGgeQR7iA"></div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Ingresar</button>
                 </form>
             </div>
-            <div class="form-column user-column">
-                <h4 class="section-title">Solicitar una cita</h4>
-                <!-- Redirecciones con JavaScript -->
-                <button type="button" class="btn btn-primary btn-block mb-3" onclick="window.location.href = '{{ url_for('user_registrar') }}'">Registrar Solicitud</button>
-               
+
+            <!-- Columna usuario -->
+            <div class="col-md-6 d-flex flex-column justify-content-center align-items-center text-white p-5 bg-primary">
                 
+                <h3 class="fw-bold mb-3">¿Nuevo aquí?</h3>
+                <p class="text-center">Registra tu solicitud de manera rápida y sencilla</p>
+
+                <button 
+                    type="button" 
+                    class="btn btn-light mt-3 px-4"
+                    onclick="window.location.href = '{{ url_for('user_registrar') }}'">
+                    Registrar Solicitud
+                </button>
             </div>
+
         </div>
     </div>
+
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+
 </body>
 </html>

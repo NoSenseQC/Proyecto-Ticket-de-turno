@@ -1,33 +1,67 @@
-.center-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+/* Fuente general */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-.form-container {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
+
+/* Contenedor principal centrado */
+.vh-100 {
+    min-height: 100vh;
 }
-.form-column {
-    width: 45%;
+
+/* Tarjeta principal */
+.row {
+    border-radius: 20px;
 }
-.section-title {
-    font-size: 2rem;  /* Aumenta el tamaño de "Administrador" y "Usuario" */
-    text-align: center;
-    margin-bottom: 1rem;
+
+/* Inputs */
+.form-control {
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    transition: all 0.3s ease;
 }
-.welcome-title {
-    font-size: 4rem;  /* Aumenta el tamaño del texto de "¡Bienvenido!" */
+
+/* Efecto focus */
+.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 5px rgba(13, 110, 253, 0.5);
 }
-.user-column {
-    display: flex;
-    flex-direction: column;
-}
-.form-group {
-    margin-bottom: 2rem;  /* Separa los campos de "Usuario" y "Contraseña" */
-}
+
+/* Botones */
 .btn {
-    margin-bottom: 1rem;  /* Separa los botones de solicitud y el botón de ingresar */
+    border-radius: 10px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+/* Hover botón principal */
+.btn-primary:hover {
+    background-color: #0b5ed7;
+}
+
+/* Botón claro (lado derecho) */
+.btn-light {
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+/* Sombra más elegante */
+.shadow-lg {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2) !important;
+}
+
+/* Texto lado derecho */
+.bg-primary p {
+    opacity: 0.9;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .row {
+        flex-direction: column;
+    }
+
+    .col-md-6 {
+        width: 100%;
+    }
 }
