@@ -3,7 +3,8 @@ from io import BytesIO
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 import qrcode
-import random  # Para generar números de turno simulados
+import random
+import os  # IMPORTANTE para Render
 
 app = Flask(__name__)
 
@@ -16,15 +17,13 @@ def admin_login():
     username = request.form['username']
     password = request.form['password']
 
-    # Validación simple de campos vacíos
     if username.strip() == '' or password.strip() == '':
-        return redirect(url_for('login'))  # Redirige al formulario de login si hay campos vacíos
+        return redirect(url_for('login'))
 
-    # Lógica de autenticación
-    if username == 'admin' and password == 'password':  # Ejemplo básico de autenticación
+    if username == 'admin' and password == 'password':
         return redirect(url_for('admin_menu'))
     else:
-        return redirect(url_for('login'))  # Redirige al formulario de login si la autenticación falla
+        return redirect(url_for('login'))
 
 @app.route('/admin_menu')
 def admin_menu():
@@ -41,7 +40,6 @@ def admin_catalogos():
 @app.route('/User_Registrar', methods=['GET', 'POST'])
 def user_registrar():
     if request.method == 'POST':
-        # Obtener datos del formulario
         curp = request.form['curp']
         nombre = request.form['nombre']
         paterno = request.form['paterno']
@@ -53,16 +51,17 @@ def user_registrar():
         municipio = request.form['municipio']
         asunto = request.form['asunto']
 
-        # Generar número de turno simulado
-        numero_turno = random.randint(1000, 9999)  # Número de turno aleatorio de 4 dígitos
+        numero_turno = random.randint(1000, 9999)
 
-        # Generar PDF
         pdf_buffer = generar_pdf(curp, nombre, paterno, materno, numero_turno)
-
-        # Generar QR
         generar_qr(curp)
 
-        return send_file(pdf_buffer, as_attachment=True, download_name='solicitud.pdf', mimetype='application/pdf')
+        return send_file(
+            pdf_buffer,
+            as_attachment=True,
+            download_name='solicitud.pdf',
+            mimetype='application/pdf'
+        )
 
     return render_template('UserRegistrar.html')
 
@@ -91,5 +90,8 @@ def generar_qr(curp):
     img = qr.make_image(fill_color="black", back_color="white")
     img.save("static/qrcode.png")
 
+
+#  CONFIGURACIÓN PARA RENDER 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host='0.0.0.0', port=port)
